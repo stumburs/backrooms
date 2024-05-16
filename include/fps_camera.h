@@ -3,10 +3,10 @@
 
 typedef struct
 {
-    Camera3D camera;
     float mouse_sensitivity;
     float movement_speed;
-} FPSCamera;
+    float fov;
+} CameraSettings;
 
-void InitCamera(FPSCamera *camera, float mouse_sensitivity, float movement_speed);
-void UpdateFPSCamera(FPSCamera *camera, Vector2 mouse_position_delta, float dt);
+void InitCamera(Camera3D *camera, CameraSettings camera_settings);
+void UpdateFPSCamera(Camera3D *camera, CameraSettings camera_settings, Vector2 mouse_position_delta, float dt);

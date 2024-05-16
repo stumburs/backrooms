@@ -1,29 +1,27 @@
 #include "fps_camera.h"
 #include <rcamera.h>
 
-void InitCamera(FPSCamera *camera, float mouse_sensitivity, float movement_speed)
+void InitCamera(Camera3D *camera, CameraSettings camera_settings)
 {
-    camera->camera.position = (Vector3){0.0f, 2.0f, 0.0f};
-    camera->camera.target = (Vector3){1.0f, 2.0f, 0.0f};
-    camera->camera.projection = CAMERA_PERSPECTIVE;
-    camera->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-    camera->camera.fovy = 90.0f;
-    camera->mouse_sensitivity = mouse_sensitivity;
-    camera->movement_speed = movement_speed;
+    camera->position = (Vector3){0.0f, 2.0f, 0.0f};
+    camera->target = (Vector3){1.0f, 2.0f, 0.0f};
+    camera->projection = CAMERA_PERSPECTIVE;
+    camera->up = (Vector3){0.0f, 1.0f, 0.0f};
+    camera->fovy = camera_settings.fov;
 }
 
-void UpdateFPSCamera(FPSCamera *camera, Vector2 mouse_position_delta, float dt)
+void UpdateFPSCamera(Camera3D *camera, CameraSettings camera_settings, Vector2 mouse_position_delta, float dt)
 {
-    CameraYaw(&camera->camera, -mouse_position_delta.x * camera->mouse_sensitivity, false);
-    CameraPitch(&camera->camera, -mouse_position_delta.y * camera->mouse_sensitivity, true, false, false);
+    CameraYaw(camera, -mouse_position_delta.x * camera_settings.mouse_sensitivity, false);
+    CameraPitch(camera, -mouse_position_delta.y * camera_settings.mouse_sensitivity, true, false, false);
 
     // Keyboard support
     if (IsKeyDown(KEY_W))
-        CameraMoveForward(&camera->camera, camera->movement_speed * dt, true);
+        CameraMoveForward(camera, camera_settings.movement_speed * dt, true);
     if (IsKeyDown(KEY_A))
-        CameraMoveRight(&camera->camera, -camera->movement_speed * dt, true);
+        CameraMoveRight(camera, -camera_settings.movement_speed * dt, true);
     if (IsKeyDown(KEY_S))
-        CameraMoveForward(&camera->camera, -camera->movement_speed * dt, true);
+        CameraMoveForward(camera, -camera_settings.movement_speed * dt, true);
     if (IsKeyDown(KEY_D))
-        CameraMoveRight(&camera->camera, camera->movement_speed * dt, true);
+        CameraMoveRight(camera, camera_settings.movement_speed * dt, true);
 }
