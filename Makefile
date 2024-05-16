@@ -4,7 +4,7 @@ CFLAGS = -I./include
 
 LDFLAGS = -L./lib -lraylib -lgdi32 -lwinmm -O3
 
-TARGET = main.exe
+TARGET = backrooms.exe
 
 SRC = ./src/main.c
 
