@@ -12,8 +12,8 @@ void InitCamera(Camera3D *camera)
 
 void UpdateFPSCamera(Camera3D *camera, Vector2 mouse_position_delta, float dt)
 {
-    CameraYaw(camera, -mouse_position_delta.x * 2.0f * dt, false);
-    CameraPitch(camera, -mouse_position_delta.y * 2.0f * dt, true, false, false);
+    CameraYaw(camera, -mouse_position_delta.x * 0.001f, false);
+    CameraPitch(camera, -mouse_position_delta.y * 0.001f, true, false, false);
 
     // Keyboard support
     if (IsKeyDown(KEY_W))
