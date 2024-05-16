@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "fps_camera.h"
+#include <stdio.h>
 
 int main()
 {
@@ -16,8 +17,9 @@ int main()
     {
         // Update
         {
-            UpdateCamera(&camera, CAMERA_FIRST_PERSON);
-            // UpdateCameraPro(&camera, Vector3Zero(), Vector3Zero(), 1.0f);
+            float dt = GetFrameTime();
+            Vector2 mouse_position_delta = GetMouseDelta();
+            UpdateFPSCamera(&camera, mouse_position_delta, dt);
         }
 
         BeginDrawing();
