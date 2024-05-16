@@ -1,27 +1,29 @@
 #include "fps_camera.h"
 #include <rcamera.h>
 
-void InitCamera(Camera3D *camera)
+void InitCamera(FPSCamera *camera, float mouse_sensitivity, float movement_speed)
 {
-    camera->position = (Vector3){0.0f, 2.0f, 0.0f};
-    camera->target = (Vector3){1.0f, 2.0f, 0.0f};
-    camera->projection = CAMERA_PERSPECTIVE;
-    camera->up = (Vector3){0.0f, 1.0f, 0.0f};
-    camera->fovy = 90.0f;
+    camera->camera.position = (Vector3){0.0f, 2.0f, 0.0f};
+    camera->camera.target = (Vector3){1.0f, 2.0f, 0.0f};
+    camera->camera.projection = CAMERA_PERSPECTIVE;
+    camera->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
+    camera->camera.fovy = 90.0f;
+    camera->mouse_sensitivity = mouse_sensitivity;
+    camera->movement_speed = movement_speed;
 }
 
-void UpdateFPSCamera(Camera3D *camera, Vector2 mouse_position_delta, float dt)
+void UpdateFPSCamera(FPSCamera *camera, Vector2 mouse_position_delta, float dt)
 {
-    CameraYaw(camera, -mouse_position_delta.x * 0.001f, false);
-    CameraPitch(camera, -mouse_position_delta.y * 0.001f, true, false, false);
+    CameraYaw(&camera->camera, -mouse_position_delta.x * camera->mouse_sensitivity, false);
+    CameraPitch(&camera->camera, -mouse_position_delta.y * camera->mouse_sensitivity, true, false, false);
 
     // Keyboard support
     if (IsKeyDown(KEY_W))
-        CameraMoveForward(camera, 10.0f * dt, true);
+        CameraMoveForward(&camera->camera, camera->movement_speed * dt, true);
     if (IsKeyDown(KEY_A))
-        CameraMoveRight(camera, -10.0f * dt, true);
+        CameraMoveRight(&camera->camera, -camera->movement_speed * dt, true);
     if (IsKeyDown(KEY_S))
-        CameraMoveForward(camera, -10.0f * dt, true);
+        CameraMoveForward(&camera->camera, -camera->movement_speed * dt, true);
     if (IsKeyDown(KEY_D))
-        CameraMoveRight(camera, 10.0f * dt, true);
+        CameraMoveRight(&camera->camera, camera->movement_speed * dt, true);
 }

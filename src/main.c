@@ -9,8 +9,8 @@ int main()
     InitWindow(1280, 720, "Backrooms");
     SetTargetFPS(60);
 
-    Camera3D camera;
-    InitCamera(&camera);
+    FPSCamera camera;
+    InitCamera(&camera, 0.001f, 10.0f);
     DisableCursor();
 
     while (!WindowShouldClose())
@@ -27,7 +27,7 @@ int main()
             ClearBackground(BLACK);
 
             // 3D
-            BeginMode3D(camera);
+            BeginMode3D(camera.camera);
             {
                 DrawPlane(Vector3Zero(), (Vector2){100.0f, 100.0f}, WHITE);
                 DrawGrid(100, 1);
