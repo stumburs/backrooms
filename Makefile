@@ -10,7 +10,7 @@ SRC_DIR = ./src
 
 SRCS := $(wildcard $(SRC_DIR)/*.c)
 
-$(TARGET): $(SRC)
+$(TARGET): $(SRCS)
 	$(CC) $(SRCS) $(CFLAGS) $(LDFLAGS) -o $(TARGET)
 
 run: $(TARGET)
