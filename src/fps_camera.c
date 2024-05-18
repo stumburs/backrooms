@@ -16,6 +16,9 @@ void UpdateFPSCamera(Camera3D *camera, CameraSettings camera_settings, Vector2 m
     CameraPitch(camera, -mouse_position_delta.y * camera_settings.mouse_sensitivity, true, false, false);
 
     // Keyboard support
+    // DEBUG SPRINTING
+    if (IsKeyDown(KEY_LEFT_CONTROL))
+        camera_settings.movement_speed *= 2.0f;
     if (IsKeyDown(KEY_W))
         CameraMoveForward(camera, camera_settings.movement_speed * dt, true);
     if (IsKeyDown(KEY_A))
@@ -24,4 +27,8 @@ void UpdateFPSCamera(Camera3D *camera, CameraSettings camera_settings, Vector2 m
         CameraMoveForward(camera, -camera_settings.movement_speed * dt, true);
     if (IsKeyDown(KEY_D))
         CameraMoveRight(camera, camera_settings.movement_speed * dt, true);
+    if (IsKeyDown(KEY_SPACE))
+        CameraMoveUp(camera, camera_settings.movement_speed * dt);
+    if (IsKeyDown(KEY_LEFT_SHIFT))
+        CameraMoveUp(camera, -camera_settings.movement_speed * dt);
 }

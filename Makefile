@@ -1,8 +1,8 @@
 CC = gcc
 
-CFLAGS = -I./include
+CFLAGS = -I./include -O3
 
-LDFLAGS = -L./lib -lraylib -lgdi32 -lwinmm -O3
+LDFLAGS = -L./lib -lraylib -lgdi32 -lwinmm
 
 TARGET = backrooms.exe
 
